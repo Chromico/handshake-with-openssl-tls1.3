@@ -1,0 +1,48 @@
+So assuming you have already installed Openssl in Linux then go ahead  type in these lines of code.
+
+Handshake
+
+./openssl s_client -connect tls13.pinterjann.is:443 -tls1_3
+
+
+You need to use a TLS 1.3 compatible server or client and specify in the code that you only require a TLS 1.3 connection otherwise it might not use TLS 1.3 but use some other version of TLS in order to get a TLS 1.3 connection.
+You can find a list of TLS 1.3 compatible servers over here them over here:             
+But also you can change the draft number.
+
+
+Resumption
+
+./openssl s_client -psk aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -connect tls13.pinterjann.is:443 -tls1_3 
+
+If it does not work then just add more "a"s or whatever in the string and do not forget to specify that you require a TLS 1.3
+
+
+ 0-RTT
+ 
+ ./openssl s_client -connect tls13.pinterjann.is:443 -tls1_3 -sess_out session.dat sess_in session.dat -early_data http.txt
+ 
+ For http.txt just write this in your text editor and save it as a .txt file:
+ 
+ get / http/1.1
+HTTP/1.1 400 Bad Request
+Server: nginx/1.14.0
+Date: Sun, 15 Jul 2018 05:14:22 GMT
+Content-Type: text/html
+Content-Length: 173
+Connection: close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+<hr><center>nginx/1.14.0</center>
+</body>
+</html>
+ 
+ OR
+ 
+ Type this line of code in your terminal:
+ 
+ 
+
+ 
